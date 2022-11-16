@@ -13,14 +13,7 @@ class CateroriesImport implements ToModel, WithProgressBar, WithHeadingRow
 
     public function model(array $row)
     {
-        return new Category([
-            'id' => $row['id'],
-            'name' => $row['name'],
-            'url_key' => $row['url_key'],
-            'description' => $row['description'],
-            'image' => $row['image'],
-            'parent_id' => $row['parent_id']
-        ]);
+        return new Category($row);
     }
 
     public function headingRow(): int

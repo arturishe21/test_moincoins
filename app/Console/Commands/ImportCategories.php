@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\CateroriesImport;
 
 class ImportCategories extends Command
@@ -24,6 +23,8 @@ class ImportCategories extends Command
 
     public function handle(): void
     {
-        Excel::import(new CateroriesImport, storage_path('/data/category.csv'));
+        $this->output->title('Starting import');
+        (new CateroriesImport)->withOutput($this->output)->import(storage_path('/data/category.csv'));
+        $this->output->title('Import successful');
     }
 }

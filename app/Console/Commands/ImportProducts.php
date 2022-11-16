@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Imports\ProductsImport;
 use Illuminate\Console\Command;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ImportProducts extends Command
 {
@@ -24,6 +23,8 @@ class ImportProducts extends Command
 
     public function handle(): void
     {
-        Excel::import(new ProductsImport(), storage_path('/data/product.csv'));
+        $this->output->title('Starting import');
+        (new ProductsImport)->withOutput($this->output)->import(storage_path('/data/product.csv'));
+        $this->output->title('Import successful');
     }
 }
